@@ -14,7 +14,7 @@ class CoffeType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 12.0),
+      padding: const EdgeInsets.only(left: 20.0),
       child: Text(
         typeofcoffe,
         style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold , color: isSelected? Colors.orange : Colors.white),
