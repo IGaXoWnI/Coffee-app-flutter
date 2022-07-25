@@ -1,5 +1,6 @@
 
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, empty_constructor_bodies
+
 
 import 'package:coffeapp/components/coffeType.dart';
 import 'package:coffeapp/components/listCoffe.dart';
@@ -8,13 +9,50 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  
+  final List coffeeTypeListe = [
+
+["vanile",
+ true , ],
+
+["cappucino",
+ false , ],
+
+["nescafe",
+ false , ],
+
+["Arabica",
+ false , ],
+
+["Robusta",
+ false , ],
+
+["Latte", 
+false , ],
+
+
+];
+
+
+void typeisSelected(int index){
+  setState(() {
+    for(int i = 0 ; i<coffeeTypeListe.length ;i++){
+      coffeeTypeListe[i][1] =  false;
+    }
+    coffeeTypeListe[index][1] = true ;
+  });
+
+}
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +80,7 @@ class _HomePageState extends State<HomePage> {
       children: [
          Padding(
            padding: const EdgeInsets.symmetric(horizontal: 25 , vertical: 18),
-           child: Text("here you can your perfect coffe" ,
+           child: Text("here you can make your perfect coffe" ,
            style: GoogleFonts.bebasNeue(fontSize: 43),),
          ),
          SizedBox(height: 35,),
@@ -66,20 +104,21 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 12 ),
             child: Container(
               height: 60,
-              child: ListView(
+              child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                children: [
-                CoffeType(typeofcoffe: "vanile" , isSelected: true,),
-                CoffeType(typeofcoffe: "cappucino" , isSelected: false,),
-                CoffeType(typeofcoffe: "nescafe" , isSelected: false,),
-                CoffeType(typeofcoffe: "Arabica" , isSelected: false,),
-                CoffeType(typeofcoffe: "Robusta" , isSelected: false,),
-                CoffeType(typeofcoffe: "Latte" , isSelected: false,),
-                ],
-              ),
+                itemCount: coffeeTypeListe.length,
+                itemBuilder: ( (context, index) {
+                return  CoffeType(
+                  typeofcoffe: coffeeTypeListe[index][0],
+                  isSelected: coffeeTypeListe[index][1],
+                  onTap: () {
+                    typeisSelected(index);
+                    },
+                  );
+              }))
             ),
           ),
-        
+         
          
          Expanded(child: 
          ListView(
